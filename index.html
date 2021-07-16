@@ -13,21 +13,70 @@
     <p id="text" style="font-size: 100px; color: red; text-align: center;"></p>
 
     <script>
+
+        var synth = window.speechSynthesis;
+        console.log(synth.getVoices());
+        voices = synth.getVoices().filter(v => v['lang'] == 'zh-CN');
+        console.log(voices);
+
+        function speak(text) {
+            if (synth.speaking) {
+                console.error('speechSynthesis.speaking');
+                return;
+            }
+            if (text !== '') {
+                var utterThis = new SpeechSynthesisUtterance(text);
+                utterThis.onend = function (event) {
+                    fetch();
+                    console.log('SpeechSynthesisUtterance.onend');
+                }
+                utterThis.onerror = function (event) {
+                    setTimeout(() => {
+                        fetch();
+                    }, 5000);
+                    console.error('SpeechSynthesisUtterance.onerror');
+                }
+                utterThis.voice = voices[Math.floor(Math.random() * voices.length)];
+                utterThis.pitch = 1;
+                utterThis.rate = 1;
+                synth.speak(utterThis);
+            }
+        }
+
         function change(text) {
             console.log(text);
             var json = JSON.parse(text);
             document.querySelector('#text').innerText = json["hitokoto"];
+            speak(json['hitokoto']);
         }
         function fetch() {
+            console.log('fetch');
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "https://v1.hitokoto.cn/");
-            xhr.onload = function() {
+            xhr.onload = function () {
                 change(xhr.response);
             }
             xhr.send();
         }
-        fetch();
-        setInterval(fetch, 5000);
+        function setSpeech() {
+            return new Promise(
+                function (resolve, reject) {
+                    let id;
+                    id = setInterval(() => {
+                        if (synth.getVoices().length !== 0) {
+                            resolve(synth.getVoices().filter(v => v['lang'] == 'zh-CN'));
+                            clearInterval(id);
+                        }
+                    }, 10);
+                }
+            )
+        }
+        let s = setSpeech();
+        s.then((v) => {
+            console.log(v);
+            voices = v;
+            fetch();
+        });
     </script>
 
 </body>
