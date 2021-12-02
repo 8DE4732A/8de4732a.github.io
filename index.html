@@ -5,14 +5,37 @@
     <title>一个人最了不起的成就，就是找到自己</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+        }
+
+        .background {
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        p {
+            font-size: 100px; 
+            color: red; 
+            text-align: center;
+            z-index: 9;
+        }
+    </style>
 </head>
 
-<body style="background-color: black;">
+<body>
+    <p id="text"></p>
 
-    <p id="text" style="font-size: 100px; color: red; text-align: center;"></p>
-
+    <canvas class="background"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
     <script>
-
         var synth = window.speechSynthesis;
         console.log(synth.getVoices());
         voices = synth.getVoices().filter(v => v['lang'] == 'zh-CN');
@@ -76,6 +99,14 @@
             voices = v;
             fetch();
         });
+        window.onload = function () {
+                Particles.init({
+                    selector:'.background',
+                    connectParticles: true,
+                    color: "#9eff76",
+                    minDistance: 160
+                });
+            };
     </script>
 
 </body>
