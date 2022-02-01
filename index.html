@@ -21,10 +21,16 @@
             z-index: 0;
         }
 
-        p {
+        #text {
             font-size: 100px;
             color: red;
             text-align: center;
+            z-index: 9;
+        }
+        #from {
+            font-size: 50px;
+            color: red;
+            text-align: right;
             z-index: 9;
         }
 
@@ -68,8 +74,11 @@
 
 <body>
     <p id="text"></p>
+    <p id="from"></p>
 
     <canvas class="background"></canvas>
+    <audio src="Lemon.mp3" loop>
+    </audio>
     <!-- <div class="snow"></div> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
     <script>
@@ -106,16 +115,24 @@
             console.log(text);
             var json = JSON.parse(text);
             document.querySelector('#text').innerText = json["hitokoto"];
-            speak(json['hitokoto']);
+            if(json['from_who']) {
+                document.querySelector('#from').innerText = json['from'] + " - " + json['from_who'];
+            } else {
+                document.querySelector('#from').innerText = json['from'] + "  ";
+            }
+            return json['hitokoto'];
+            // speak(json['hitokoto']);
         }
         function fetch() {
             console.log('fetch');
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "https://v1.hitokoto.cn/");
             xhr.onload = function () {
-                change(xhr.response);
+                var text = change(xhr.response);
+                setTimeout(() => {fetch();}, text.length * 200);
             }
             xhr.send();
+            
         }
         function setSpeech() {
             return new Promise(
@@ -130,14 +147,7 @@
                 }
             )
         }
-        let s = setSpeech();
-        s.then((v) => {
-            console.log(v);
-            voices = v;
-            fetch();
-        });
         window.onload = function () {
-
             calendar = new Date();
             month = calendar.getMonth();
             date = calendar.getDate();
@@ -154,7 +164,10 @@
                     minDistance: 160
                 });
             }
-
+            fetch();
+            document.body.addEventListener('click', ()=>{
+                document.querySelector('audio').play();
+            });
         };
     </script>
 
