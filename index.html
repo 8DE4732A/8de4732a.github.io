@@ -168,6 +168,12 @@
             document.body.addEventListener('click', ()=>{
                 document.querySelector('audio').play();
             });
+            document.body.addEventListener('keyup', (event) => {
+                if(event.code == 'Space') {
+                    console.log("Space key up");
+                    window.location = 'https://liuping.win/nes.html';
+                }
+            })
         };
     </script>
 
