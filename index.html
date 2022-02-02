@@ -77,8 +77,7 @@
     <p id="from"></p>
 
     <canvas class="background"></canvas>
-    <audio src="Lemon.mp3" loop>
-    </audio>
+    <audio></audio>
     <!-- <div class="snow"></div> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js"></script>
     <script>
@@ -165,8 +164,16 @@
                 });
             }
             fetch();
+
+            function playAudio() {
+                var srcs = ['my sweetest one.mp3', 'Lemon.mp3', 'LOSER.mp3'];
+                var audio = document.querySelector('audio');
+                audio.src = srcs[Math.floor(Math.random() * srcs.length)];
+                audio.play();
+            }
             document.body.addEventListener('click', ()=>{
-                document.querySelector('audio').play();
+                playAudio();
+                audio.addEventListener('ended', () => {playAudio();});
             });
             document.body.addEventListener('keyup', (event) => {
                 if(event.code == 'Space') {
