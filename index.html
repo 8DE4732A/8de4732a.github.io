@@ -127,7 +127,7 @@
             xhr.open("GET", "https://v1.hitokoto.cn/");
             xhr.onload = function () {
                 var text = change(xhr.response);
-                setTimeout(() => {fetch();}, text.length * 200);
+                setTimeout(() => {fetch();}, Math.max(2000, text.length * 200));
             }
             xhr.send();
             
@@ -165,7 +165,7 @@
             fetch();
 
             function playAudio() {
-                var srcs = ['my sweetest one.mp3', 'Lemon.mp3', 'LOSER.mp3'];
+                var srcs = ['Lemon.mp3', 'LOSER.mp3'];
                 var audio = document.querySelector('audio');
                 audio.src = srcs[Math.floor(Math.random() * srcs.length)];
                 audio.play();
