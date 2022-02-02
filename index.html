@@ -169,10 +169,10 @@
                 var audio = document.querySelector('audio');
                 audio.src = srcs[Math.floor(Math.random() * srcs.length)];
                 audio.play();
+                audio.addEventListener('ended', () => {playAudio();});
             }
             document.body.addEventListener('click', ()=>{
                 playAudio();
-                audio.addEventListener('ended', () => {playAudio();});
             });
             document.body.addEventListener('keyup', (event) => {
                 if(event.code == 'Space') {
