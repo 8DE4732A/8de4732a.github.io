@@ -9,6 +9,3 @@ cover:
 
 Remaking Cavestory in C++
 [https://youtu.be/ETvApbD5xRo](https://youtu.be/ETvApbD5xRo)
-
-
-我想用go语言写一个。。。

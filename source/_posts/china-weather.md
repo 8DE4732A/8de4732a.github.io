@@ -6,7 +6,7 @@ categories: python
 mp3:
 cover:
 ---
-发现[中国天气网](http://www.weather.com.cn/satellite/)的气象云图挺好看的，vps上搞了个定时任务，抓取图片，生成视频
+[中国天气网](http://www.weather.com.cn/satellite/)
 
 定时抓取
 ```python

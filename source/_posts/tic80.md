@@ -7,7 +7,7 @@ mp3:
 cover:
 ---
 
-tic80好玩的游戏收集
+tic80
 
 ![](https://raw.githubusercontent.com/tasogare66/nibiruman/master/capture/s02.gif)
 [https://github.com/tasogare66/nibiruman](https://github.com/tasogare66/nibiruman)

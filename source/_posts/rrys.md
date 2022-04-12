@@ -6,10 +6,7 @@ categories: linux
 mp3:
 cover:
 ---
-树莓派接入了两个isp(长城宽带，移动),由于长城宽带限制，使用人人影视时只想用移动的网。
-使用的方案可以用veth，使用不同的网路命名空间加iptables, 还有直接借用docker
 
-使用docker解决此问题
 ```Dockerfile
 FROM ubuntu:18.04
 LABEL maintainer "8de4732a"
@@ -26,10 +23,6 @@ docker build . -t rrys:0.0.1
 alpine启动不了，只能用ubuntu了
 
 启动
-
-```
-UUID=1035b204-bcfa-48dc-82be-9a37a124838b       /mnt/sd ext4 defaults,nodiratime,noatime,nofail 0       1
-```
 ```shell
 docker run -it -v /mnt/sd/rrys:/opt/work/rrshareweb/data -p 3001:3001 -name rrys rrys:0.0.1
 ```
@@ -51,5 +44,3 @@ ip rule add fwmark 3 table 100
 [http://linux-ip.net/html/tools-ip-routing.html](http://linux-ip.net/html/tools-ip-routing.html)
 
 [http://www.study-area.org/tips/adv-route/Adv-Routing-HOWTO-4.html](http://www.study-area.org/tips/adv-route/Adv-Routing-HOWTO-4.html)
-
-[https://shumeipai.nxez.com/2019/01/17/fstab-and-mobile-hard-disk-mounting-method.html](https://shumeipai.nxez.com/2019/01/17/fstab-and-mobile-hard-disk-mounting-method.html)
