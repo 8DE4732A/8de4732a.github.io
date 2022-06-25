@@ -3,6 +3,10 @@ title: 编译及调试
 date: 2022-06-25 21:00:24
 tags:
 ---
+环境:
+WSL/ubuntu 20.04
+vscode
+
 源码: [https://github.com/openjdk/jdk/tree/jdk-11+28](https://github.com/openjdk/jdk/tree/jdk-11+28)
 
 如何编译可以参考源码 doc/building.html
