@@ -36,6 +36,69 @@ logging: ELK
 `ThreadLocalContextStorage` 基于ThreadLocal的上下文存储
 
 instrumentation以SPI机制加载
+`AgentInstaller`#`installBytebuddyAgent`
+
+```jsx
+for (AgentExtension agentExtension : loadOrdered(AgentExtension.class)) {
+      if (logger.isLoggable(FINE)) {
+        logger.log(
+            FINE,
+            "Loading extension {0} [class {1}]",
+            new Object[] {agentExtension.extensionName(), agentExtension.getClass().getName()});
+      }
+      try {
+        agentBuilder = agentExtension.extend(agentBuilder);
+        numberOfLoadedExtensions++;
+      } catch (Exception | LinkageError e) {
+        logger.log(
+            SEVERE,
+            "Unable to load extension "
+                + agentExtension.extensionName()
+                + " [class "
+                + agentExtension.getClass().getName()
+                + "]",
+            e);
+      }
+    }
+```
+
+套了两层
+
+`InstrumentationLoader`
+
+```jsx
+@Override
+  public AgentBuilder extend(AgentBuilder agentBuilder) {
+    int numberOfLoadedModules = 0;
+    for (InstrumentationModule instrumentationModule : loadOrdered(InstrumentationModule.class)) {
+      if (logger.isLoggable(FINE)) {
+        logger.log(
+            FINE,
+            "Loading instrumentation {0} [class {1}]",
+            new Object[] {
+              instrumentationModule.instrumentationName(),
+              instrumentationModule.getClass().getName()
+            });
+      }
+      try {
+        agentBuilder = instrumentationModuleInstaller.install(instrumentationModule, agentBuilder);
+        numberOfLoadedModules++;
+      } catch (Exception | LinkageError e) {
+        logger.log(
+            SEVERE,
+            "Unable to load instrumentation "
+                + instrumentationModule.instrumentationName()
+                + " [class "
+                + instrumentationModule.getClass().getName()
+                + "]",
+            e);
+      }
+    }
+    logger.log(FINE, "Installed {0} instrumenter(s)", numberOfLoadedModules);
+
+    return agentBuilder;
+  }
+```
 
 ## `java-http-client` 为例
 
