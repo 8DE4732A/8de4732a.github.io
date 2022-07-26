@@ -125,4 +125,35 @@ static {
 
 clientInsturmenter通过 http header实现
 
+## MDC
+[https://zhuanlan.zhihu.com/p/61395047](https://zhuanlan.zhihu.com/p/61395047)
+```java
+public static ILoggingEvent wrapEvent(ILoggingEvent event) {
+    Span currentSpan = Span.current();
+    if (!currentSpan.getSpanContext().isValid()) {
+      return event;
+    }
+
+    Map<String, String> eventContext = event.getMDCPropertyMap();
+    if (eventContext != null && eventContext.containsKey(TRACE_ID)) {
+      // Assume already instrumented event if traceId is present.
+      return event;
+    }
+
+    Map<String, String> contextData = new HashMap<>();
+    SpanContext spanContext = currentSpan.getSpanContext();
+    contextData.put(TRACE_ID, spanContext.getTraceId());
+    contextData.put(SPAN_ID, spanContext.getSpanId());
+    contextData.put(TRACE_FLAGS, spanContext.getTraceFlags().asHex());
+
+    if (eventContext == null) {
+      eventContext = contextData;
+    } else {
+      eventContext = new UnionMap<>(eventContext, contextData);
+    }
+
+    return new LoggingEventWrapper(event, eventContext);
+  }
+```
+
 ![open-telemetry-http](assets/open-telemetry-http.png)
