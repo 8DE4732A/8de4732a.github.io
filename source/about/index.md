@@ -4,6 +4,6 @@ date: 2020-10-03 11:27:30
 ---
 {% raw %}
 <div style="text-align: center;">
-<video src="../assets/girl.mov" autoplay muted loop style="height: 100%; max-height: 100vh; width: auto; max-width: 100%;"></video>
+<iframe src="//player.bilibili.com/player.html?aid=215901212&bvid=BV1Da411n793&cid=772894060&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </div>
 {% endraw%}
