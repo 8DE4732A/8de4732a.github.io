@@ -1,4 +1,0 @@
----
-title: innodb
-tags: mysql
----

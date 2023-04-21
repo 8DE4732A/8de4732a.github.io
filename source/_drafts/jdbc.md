@@ -1,4 +1,0 @@
----
-title: jdbc
-tags:
----

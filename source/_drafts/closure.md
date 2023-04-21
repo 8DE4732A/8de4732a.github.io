@@ -1,4 +1,0 @@
----
-title: closure
-tags:
----
