@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/x-icon" href="avatar.png">
-    <title>风中鸷鸟</title>
+    <title>风中鸷鸟摄影展</title>
     <style>
         body {
             background: whitesmoke;
             display: -webkit-box;
             display: -ms-flexbox;
             display: flex;
-            height: 90vh;
+            height: 95vh;
             -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
@@ -25,10 +25,10 @@
             box-sizing: border-box;
             position: relative;
             background: black;
-            background-image: -webkit-linear-gradient(top right, #5D5D5B, #383838);
+            background-image: -webkit-linear-gradient(top right, #b6abab, #b6abab);
             background-image: linear-gradient(top right, #5D5D5B, #383838);
             padding: 7px;
-            width: 550px;
+            width: 660px;
             box-shadow: -1px 1px var(--blur) 1px rgba(0, 0, 0, 0.1), -2px 2px var(--blur) 1px rgba(0, 0, 0, 0.09), -3px 3px var(--blur) 1px rgba(0, 0, 0, 0.08), -4px 4px var(--blur) 1px rgba(0, 0, 0, 0.07), -5px 5px var(--blur) 1px rgba(0, 0, 0, 0.06), -6px 6px var(--blur) 1px rgba(0, 0, 0, 0.05), -7px 7px var(--blur) 1px rgba(0, 0, 0, 0.04), -8px 8px var(--blur) 1px rgba(0, 0, 0, 0.03), -9px 9px var(--blur) 1px rgba(0, 0, 0, 0.03), -10px 10px var(--blur) 1px rgba(0, 0, 0, 0.03), -11px 11px var(--blur) 1px rgba(0, 0, 0, 0.03), -12px 12px var(--blur) 1px rgba(0, 0, 0, 0.02), -13px 13px var(--blur) 1px rgba(0, 0, 0, 0.02), -14px 14px var(--blur) 1px rgba(0, 0, 0, 0.01), -15px 15px var(--blur) 1px rgba(0, 0, 0, 0.01), -16px 16px var(--blur) 1px rgba(0, 0, 0, 0.01);
         }
 
@@ -72,6 +72,21 @@
             <div class="image" style="background-image: url(flower.jpg)"></div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const imgs = [
+                'flower.jpg',
+                'blue_time.jpg',
+                'jay.jpg',
+            ];
+            let index = 0;
+            setInterval(() => {
+                let img = document.querySelector(".image");
+                img.setAttribute('style', `background-image: url(${imgs[++index % imgs.length]})`);
+
+            }, 3000);
+        });
+    </script>
 </body>
 
 </html>
