@@ -22,5 +22,14 @@
 </head>
 <body>
     <video src="trim.4A7C0CD2-8160-41C1-8E06-4642AB6A5C34.MOV" autoplay muted controls></video>
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            const video = document.querySelector('video');
+            const body = document.querySelector('body');
+            body.addEventListener('click', () => {
+                video.muted = false;
+            });
+        });
+    </script>
 </body>
 </html>
